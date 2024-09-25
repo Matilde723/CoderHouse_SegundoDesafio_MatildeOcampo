@@ -1,0 +1,60 @@
+﻿@page "/productos/editar/{id:int}"
+
+<h3>Editar Producto</h3>
+
+<EditForm Model="productToUpdate" OnValidSubmit="UpdateProduct">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="Descripcion">Descripción:</label>
+        <InputText id="Descripcion" class="form-control" @bind-Value="productToUpdate.Descripcion" />
+    </div>
+
+    <div class="form-group">
+        <label for="Costo">Costo:</label>
+        <InputNumber id="Costo" class="form-control" @bind-Value="productToUpdate.Costo" />
+    </div>
+
+    <div class="form-group">
+        <label for="PrecioVenta">Precio Venta:</label>
+        <InputNumber id="PrecioVenta" class="form-control" @bind-Value="productToUpdate.PrecioVenta" />
+    </div>
+
+    <div class="form-group">
+        <label for="Stock">Stock:</label>
+        <InputNumber id="Stock" class="form-control" @bind-Value="productToUpdate.Stock" />
+    </div>
+
+    <div class="form-group">
+        <label for="IdUsuario">Id Usuario:</label>
+        <InputNumber id="IdUsuario" class="form-control" @bind-Value="productToUpdate.IdUsuario" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Actualizar Producto</button>
+</EditForm>
+
+@code {
+    [Parameter] public int id { get; set; }  // Bind product ID from the URL
+    private Producto productToUpdate = new Producto();
+
+    protected override void OnInitialized()
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+
+        // Pass the id and connectionString to the method
+        productToUpdate = ProductoDataAccess.ObtenerProducto(id, connectionString).FirstOrDefault();
+    }
+
+    protected void UpdateProduct()
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+
+        ProductoDataAccess.ModificarProducto(productToUpdate, connectionString);
+
+        // Navigate back to the product list after updating
+        NavigationManager.NavigateTo("/productos");
+    }
+
+    [Inject] private NavigationManager NavigationManager { get; set; }
+}

@@ -1,0 +1,61 @@
+﻿@page "/usuarios/editar/{id:int}"
+
+<h3>Editar Usuario</h3>
+
+<EditForm Model="usuarioToUpdate" OnValidSubmit="UpdateUsuario">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="Nombre">Nombre:</label>
+        <InputText id="Nombre" class="form-control" @bind-Value="usuarioToUpdate.Nombre" />
+    </div>
+
+    <div class="form-group">
+        <label for="Apellido">Apellido:</label>
+        <InputText id="Apellido" class="form-control" @bind-Value="usuarioToUpdate.Apellido" />
+    </div>
+
+    <div class="form-group">
+        <label for="NombreUsuario">Nombre de Usuario:</label>
+        <InputText id="NombreUsuario" class="form-control" @bind-Value="usuarioToUpdate.NombreUsuario" />
+    </div>
+
+    <div class="form-group">
+        <label for="Contraseña">Contraseña:</label>
+        <InputText id="Contraseña" type="password" class="form-control" @bind-Value="usuarioToUpdate.Contraseña" />
+    </div>
+
+    <div class="form-group">
+        <label for="Mail">Correo Electrónico:</label>
+        <InputText id="Mail" class="form-control" @bind-Value="usuarioToUpdate.Mail" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
+</EditForm>
+
+@code {
+    [Parameter] public int id { get; set; }
+    private Usuario usuarioToUpdate = new Usuario();
+
+    protected override void OnInitialized()
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+
+        // Fetch the user to update based on the id
+        usuarioToUpdate = UsuarioDataAccess.ObtenerUsuario(id, connectionString);
+    }
+
+    protected void UpdateUsuario()
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+
+        // Call the method to update the user
+        UsuarioDataAccess.ModificarUsuario(usuarioToUpdate, connectionString);
+
+        // Navigate back to the user list after updating
+        NavigationManager.NavigateTo("/usuarios");
+    }
+
+    [Inject] private NavigationManager NavigationManager { get; set; }
+}

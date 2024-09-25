@@ -1,0 +1,64 @@
+﻿@page "/productosvendidos"
+
+<h3>Productos Vendidos</h3>
+
+<!-- Tala de productos -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Id Producto</th>
+            <th>Stock</th>
+            <th>Id Venta</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var productoVendido in productosVendidos)
+        {
+            <tr>
+                <td>@productoVendido.Id</td>
+                <td>@productoVendido.IdProducto</td>
+                <td>@productoVendido.Stock</td>
+                <td>@productoVendido.IdVenta</td>
+                <td>
+                    <!-- Botones para Update y Delete -->
+                    <button class="btn btn-primary" @onclick="() => NavigateToEdit(productoVendido.Id)">Modificar</button>
+                    <button class="btn btn-danger" @onclick="() => DeleteProductoVendido(productoVendido.Id)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Botón para crear un nuevo producto vendido-->
+<button class="btn btn-success" @onclick="NavigateToCreate">Crear Nuevo Producto Vendido</button>
+
+@code {
+    private List<ProductoVendido> productosVendidos = new List<ProductoVendido>();
+
+    protected override void OnInitialized()
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        productosVendidos = ProductoVendidoDataAccess.ListarProductosVendidos(connectionString);
+    }
+
+    private void NavigateToCreate()
+    {
+        NavigationManager.NavigateTo("/productosvendidos/crear");
+    }
+
+    private void NavigateToEdit(int id)
+    {
+        NavigationManager.NavigateTo($"/productosvendidos/editar/{id}");
+    }
+
+    protected void DeleteProductoVendido(int id)
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        ProductoVendidoDataAccess.EliminarProductoVendido(id, connectionString);
+        productosVendidos = ProductoVendidoDataAccess.ListarProductosVendidos(connectionString);
+    }
+
+    [Inject] private NavigationManager NavigationManager { get; set; }
+}

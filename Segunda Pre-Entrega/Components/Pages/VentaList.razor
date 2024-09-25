@@ -1,0 +1,59 @@
+﻿@page "/ventas"
+
+<h3>Ventas</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Comentarios</th>
+            <th>IdUsuario</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var venta in ventas)
+        {
+            <tr>
+                <td>@venta.Id</td>
+                <td>@venta.Comentarios</td>
+                <td>@venta.IdUsuario</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => NavigateToEdit(venta.Id)">Modificar</button>
+                    <button class="btn btn-danger" @onclick="() => DeleteVenta(venta.Id)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-success" @onclick="NavigateToCreate">Crear Nueva Venta</button>
+
+@code {
+    private List<Venta> ventas = new List<Venta>();
+
+    protected override void OnInitialized()
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        ventas = VentaDataAccess.ListarVentas(connectionString);
+    }
+
+    private void NavigateToCreate()
+    {
+        NavigationManager.NavigateTo("/ventas/crear");
+    }
+
+    private void NavigateToEdit(int id)
+    {
+        NavigationManager.NavigateTo($"/ventas/editar/{id}");
+    }
+
+    protected void DeleteVenta(int id)
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        VentaDataAccess.EliminarVenta(id, connectionString);
+        ventas = VentaDataAccess.ListarVentas(connectionString);
+    }
+
+    [Inject] private NavigationManager NavigationManager { get; set; }
+}

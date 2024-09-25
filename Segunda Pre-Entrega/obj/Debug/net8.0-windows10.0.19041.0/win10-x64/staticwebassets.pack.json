@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\matts\\OneDrive\\Documentos\\CoderHouse\\C#\\repos\\CoderHouse_Ejemplos\\Segunda Pre-Entrega\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\scopedcss\\bundle\\SegundaPreEntrega.styles.css",
+      "PackagePath": "staticwebassets\\SegundaPreEntrega.styles.css"
+    },
+    {
+      "Id": "C:\\Users\\matts\\OneDrive\\Documentos\\CoderHouse\\C#\\repos\\CoderHouse_Ejemplos\\Segunda Pre-Entrega\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\matts\\OneDrive\\Documentos\\CoderHouse\\C#\\repos\\CoderHouse_Ejemplos\\Segunda Pre-Entrega\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\matts\\OneDrive\\Documentos\\CoderHouse\\C#\\repos\\CoderHouse_Ejemplos\\Segunda Pre-Entrega\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\matts\\OneDrive\\Documentos\\CoderHouse\\C#\\repos\\CoderHouse_Ejemplos\\Segunda Pre-Entrega\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "C:\\Users\\matts\\OneDrive\\Documentos\\CoderHouse\\C#\\repos\\CoderHouse_Ejemplos\\Segunda Pre-Entrega\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\staticwebassets\\msbuild.SegundaPreEntrega.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\staticwebassets\\msbuild.build.SegundaPreEntrega.props",
+      "PackagePath": "build\\SegundaPreEntrega.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\staticwebassets\\msbuild.buildMultiTargeting.SegundaPreEntrega.props",
+      "PackagePath": "buildMultiTargeting\\SegundaPreEntrega.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\staticwebassets\\msbuild.buildTransitive.SegundaPreEntrega.props",
+      "PackagePath": "buildTransitive\\SegundaPreEntrega.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

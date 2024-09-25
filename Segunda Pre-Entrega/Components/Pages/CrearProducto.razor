@@ -1,0 +1,51 @@
+﻿@page "/productos/crear"
+
+<h3>Crear Producto</h3>
+
+<EditForm Model="newProduct" OnValidSubmit="CreateProduct">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="Descripcion">Descripción:</label>
+        <InputText id="Descripcion" class="form-control" @bind-Value="newProduct.Descripcion" />
+    </div>
+
+    <div class="form-group">
+        <label for="Costo">Costo:</label>
+        <InputNumber id="Costo" class="form-control" @bind-Value="newProduct.Costo" />
+    </div>
+
+    <div class="form-group">
+        <label for="PrecioVenta">Precio Venta:</label>
+        <InputNumber id="PrecioVenta" class="form-control" @bind-Value="newProduct.PrecioVenta" />
+    </div>
+
+    <div class="form-group">
+        <label for="Stock">Stock:</label>
+        <InputNumber id="Stock" class="form-control" @bind-Value="newProduct.Stock" />
+    </div>
+
+    <div class="form-group">
+        <label for="IdUsuario">Id Usuario:</label>
+        <InputNumber id="IdUsuario" class="form-control" @bind-Value="newProduct.IdUsuario" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Crear Producto</button>
+</EditForm>
+
+@code {
+    private Producto newProduct = new Producto();
+
+    protected void CreateProduct()
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+
+        ProductoDataAccess.CrearProducto(newProduct, connectionString);
+
+        //Navegar de regreso a la product list, después de la creación
+        NavigationManager.NavigateTo("/productos");
+    }
+
+    [Inject] private NavigationManager NavigationManager { get; set; }
+}

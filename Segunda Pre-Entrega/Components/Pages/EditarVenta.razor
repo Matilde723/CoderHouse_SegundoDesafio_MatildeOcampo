@@ -1,0 +1,52 @@
+﻿@page "/ventas/editar/{id:int}"
+
+<h3>Editar Venta</h3>
+<!--
+<EditForm Model="ventaToUpdate" OnValidSubmit="UpdateVenta">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="Id">Id:</label>
+        <InputText id="Id" class="form-control" @bind-Value="ventaToUpdate.Id" readonly />
+    </div>
+
+    <div class="form-group">
+        <label for="Comentarios">Comentarios:</label>
+        <InputText id="Comentarios" class="form-control" @bind-Value="ventaToUpdate.Comentarios" />
+    </div>
+
+    <div class="form-group">
+        <label for="IdUsuario">Id Usuario:</label>
+        <InputNumber id="IdUsuario" class="form-control" @bind-Value="ventaToUpdate.IdUsuario" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Actualizar Venta</button>
+</EditForm>
+
+-->
+@code {
+    [Parameter] public int id { get; set; }
+    private Venta ventaToUpdate = new Venta();
+
+    protected override void OnInitialized()
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+
+        // Obtener la venta en base al id
+        ventaToUpdate = VentaDataAccess.ObtenerVenta(id, connectionString);
+    }
+
+    protected void UpdateVenta()
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+
+        // 
+        VentaDataAccess.ModificarVenta(ventaToUpdate, connectionString);
+
+        // Navigate back to the venta list after updating
+        NavigationManager.NavigateTo("/ventas");
+    }
+
+    [Inject] private NavigationManager NavigationManager { get; set; }
+}

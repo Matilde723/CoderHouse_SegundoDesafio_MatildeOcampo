@@ -1,0 +1,63 @@
+﻿@page "/usuarios"
+
+<h3>Usuarios</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>NombreUsuario</th>
+            <th>Mail</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usuario in usuarios)
+        {
+            <tr>
+                <td>@usuario.Id</td>
+                <td>@usuario.Nombre</td>
+                <td>@usuario.Apellido</td>
+                <td>@usuario.NombreUsuario</td>
+                <td>@usuario.Mail</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => NavigateToEdit(usuario.Id)">Modificar</button>
+                    <button class="btn btn-danger" @onclick="() => DeleteUsuario(usuario.Id)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-success" @onclick="NavigateToCreate">Crear Nuevo Usuario</button>
+
+@code {
+    private List<Usuario> usuarios = new List<Usuario>();
+
+    protected override void OnInitialized()
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        usuarios = UsuarioDataAccess.ListarUsuarios(connectionString);
+    }
+
+    private void NavigateToCreate()
+    {
+        NavigationManager.NavigateTo("/usuarios/crear");
+    }
+
+    private void NavigateToEdit(int id)
+    {
+        NavigationManager.NavigateTo($"/usuarios/editar/{id}");
+    }
+
+    protected void DeleteUsuario(int id)
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        UsuarioDataAccess.EliminarUsuario(id, connectionString);
+        usuarios = UsuarioDataAccess.ListarUsuarios(connectionString);
+    }
+
+    [Inject] private NavigationManager NavigationManager { get; set; }
+}

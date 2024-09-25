@@ -1,0 +1,45 @@
+﻿@page "/productosvendidos/editar/{id:int}"
+
+<h3>Editar Producto Vendido</h3>
+
+<EditForm Model="productoVendidoToUpdate" OnValidSubmit="UpdateProductoVendido">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="IdProducto">Id Producto:</label>
+        <InputNumber id="IdProducto" class="form-control" @bind-Value="productoVendidoToUpdate.IdProducto" />
+    </div>
+
+    <div class="form-group">
+        <label for="Stock">Stock:</label>
+        <InputNumber id="Stock" class="form-control" @bind-Value="productoVendidoToUpdate.Stock" />
+    </div>
+
+    <div class="form-group">
+        <label for="IdVenta">Id Venta:</label>
+        <InputNumber id="IdVenta" class="form-control" @bind-Value="productoVendidoToUpdate.IdVenta" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Actualizar Producto Vendido</button>
+</EditForm>
+
+@code {
+    [Parameter] public int id { get; set; }
+    private ProductoVendido productoVendidoToUpdate = new ProductoVendido();
+
+    protected override void OnInitialized()
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        productoVendidoToUpdate = ProductoVendidoDataAccess.ObtenerProductoVendido(id, connectionString);
+    }
+
+    protected void UpdateProductoVendido()
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        ProductoVendidoDataAccess.ModificarProductoVendido(productoVendidoToUpdate, connectionString);
+        NavigationManager.NavigateTo("/productosvendidos");
+    }
+
+    [Inject] private NavigationManager NavigationManager { get; set; }
+}

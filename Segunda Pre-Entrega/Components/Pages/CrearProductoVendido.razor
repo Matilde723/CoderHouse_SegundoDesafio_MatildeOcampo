@@ -1,0 +1,39 @@
+﻿@page "/productosvendidos/crear"
+
+<h3>Crear Producto Vendido</h3>
+
+<EditForm Model="newProductoVendido" OnValidSubmit="CreateProductoVendido">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <!--
+    <div class="form-group">
+        <label for="IdProducto">Id Producto:</label>
+        <InputNumber id="IdProducto" class="form-control" @bind-Value="newProductoVendido.IdProducto" />
+    </div>
+    -->
+    <div class="form-group">
+        <label for="Stock">Stock:</label>
+        <InputNumber id="Stock" class="form-control" @bind-Value="newProductoVendido.Stock" />
+    </div>
+
+    <div class="form-group">
+        <label for="IdVenta">Id Venta:</label>
+        <InputNumber id="IdVenta" class="form-control" @bind-Value="newProductoVendido.IdVenta" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Crear Producto Vendido</button>
+</EditForm>
+
+@code {
+    private ProductoVendido newProductoVendido = new ProductoVendido();
+
+    protected void CreateProductoVendido()
+    {
+        string connectionString = "Data Source=COMPUMATI\\MSSQLSERVER01;Initial Catalog=CoderhouseProyectoFinal;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        ProductoVendidoDataAccess.CrearProductoVendido(newProductoVendido, connectionString);
+        NavigationManager.NavigateTo("/productosvendidos");
+    }
+
+    [Inject] private NavigationManager NavigationManager { get; set; }
+}
